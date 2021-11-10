@@ -59,7 +59,14 @@ namespace TrickySerialization
             // var derserialized = JsonConvert.DeserializeObject<OrderUpdateBase>(simpleJson);
             Console.WriteLine(new string('=', 20));
             Console.WriteLine("Received data: ");
+            var kafkaMessageHeader = "TrickySerialization.OrderAddedEvent, TrickySerialization";
             var derserialized = JsonConvert.DeserializeObject(simpleJson, typeof(OrderAddedEvent));
+            
+            if (kafkaMessageHeader == "TrickySerialization.OrderAddedEvent, TrickySerialization")
+            {
+                var message = derserialized as OrderAddedEvent;
+                // ... processing
+            }
             // var derserialized = JsonConvert.DeserializeObject<Event<PayloadBase>>(simpleJson);
             
             Console.WriteLine(derserialized);
